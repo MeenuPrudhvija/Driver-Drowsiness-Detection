@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Drowsiness Detection</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to the external CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            border: 1px solid #ccc;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .chat-body {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chat-options button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #f1f1f1;
+            cursor: pointer;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .chat-options button:hover {
+            background: #ddd;
+        }
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="login.html">Login</a>
+    <a href="login.html">Register</a>
+</nav>
+
+<section id="page1" class="page1">
+    <div>Driver Drowsiness Detection</div>
+</section>
+
+<section id="page2" class="page2">
+    <div class="animate">
+        <p class="gradient-text"><b>Driver drowsiness detection uses cameras, sensors,</b></p>
+        <p class="gradient-text"><b>and wearables to monitor signs of fatigue, such as</b></p>
+        <p class="gradient-text"><b>eye movement and driving behavior. When drowsiness is</b></p>
+        <p class="gradient-text"><b>detected, the system alerts the driver to encourage breaks.</b></p>
+        <p class="gradient-text"><b>This technology enhances road safety by reducing</b></p>
+        <p class="gradient-text"><b>the risk of accidents caused by tiredness.</b></p>
+    </div>
+</section>
+
+<section id="page3" class="page3">
+    <div>
+        <center><img src="dd1.jpg" width="800" height="400"></center></br>
+        <p class="gradient-text"><b>Carefulness costs you nothing. Carelessness may cost you your life.</b></p>
+    </div>
+</section>
+
+<button class="floating-btn" onclick="toggleChatbot()">💬</button>
+    
+<div class="chatbot" id="chatbot">
+    <div class="chat-header">Driver Drowsiness Chatbot</div>
+    <div class="chat-body" id="chat-body"></div>
+</div>
+
+<script>
+    let questions = {
+        "What happens if I start dozing off while driving? 😴": "The system will alert you with a loud alarm or vibration to wake you up and prompt you to take a break.",
+        "How does the system know I’m getting sleepy? 🧐": "It keeps an eye on your blink rate, eye position, and even head movements to detect signs of fatigue.",
+        "Can I drive safely at night with this system? 🌙": "Absolutely! The system uses infrared cameras that work even in the dark.",
+        "Will it buzz every time I blink slowly? 🤔": "Nope! The system is smart enough to detect real signs of drowsiness, not just casual blinks.",
+        "Can I adjust how sensitive the system is? ⚙️": "Yes, you can fine-tune the sensitivity to avoid false alarms or get quicker alerts.",
+        "What’s the secret sauce behind this technology? 🤖": "It's all about advanced AI that monitors your behavior and learns when you're not at your best for driving.",
+        "How often should I take breaks during long drives? 🛑": "Experts recommend taking a 15-minute break every 2 hours of driving. Stretch those legs!",
+        "Will the system embarrass me by sounding an alarm? 😳": "If it keeps you safe, a little embarrassment is totally worth it, right?",
+        "What if I wear glasses or sunglasses? 🕶️": "No problem! Advanced systems can still track your eyes through most types of glasses.",
+        "How fast does the system alert me when I'm drowsy? ⚡": "Within seconds of detecting continuous signs of fatigue. It’s super quick!",
+        "What’s the coolest feature of this system? 😎": "Some systems even track your driving style and provide long-term fatigue insights.",
+        "Can this system predict when I’ll get sleepy? 🔮": "Sort of! By analyzing your driving behavior and eye patterns, it can warn you before you actually doze off.",
+        "Have you ever nodded off while driving? 😬 (It’s okay, be honest!)": "Most people have felt drowsy at some point, but this system ensures you're safer when it happens.",
+        "Why not just drink coffee and keep going? ☕": "Coffee helps temporarily, but nothing beats a good nap or proper rest.",
+        "How does this help me stay safe on long road trips? 🛣️": "It keeps you alert by detecting early signs of fatigue and reminding you to take breaks."
+    };
+
+    function toggleChatbot() {
+        const chatbot = document.getElementById("chatbot");
+        chatbot.style.display = chatbot.style.display === "none" || chatbot.style.display === "" ? "flex" : "none";
+        if (chatbot.style.display === "flex") {
+            startChat();
+        }
+    }
+
+    function startChat() {
+        const chatBody = document.getElementById("chat-body");
+        chatBody.innerHTML = "";
+        appendMessage("🤖", "Hi, I am DrowziiiBot. How can I help you ? Select an option below.");
+        showOptions();
+    }
+
+    function appendMessage(sender, message) {
+        const chatBody = document.getElementById("chat-body");
+        const messageDiv = document.createElement("div");
+        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        messageDiv.style.marginBottom = "10px";
+        chatBody.appendChild(messageDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showOptions() {
+        const chatBody = document.getElementById("chat-body");
+        const optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("chat-options");
+
+        Object.keys(questions).forEach(question => {
+            const button = document.createElement("button");
+            button.innerText = question;
+            button.onclick = () => handleAnswer(question);
+            optionsDiv.appendChild(button);
+        });
+
+        chatBody.appendChild(optionsDiv);
+    }
+
+    function handleAnswer(question) {
+        appendMessage("You", question);
+        appendMessage("🤖", questions[question]);
+        delete questions[question];
+
+        if (Object.keys(questions).length > 0) {
+            appendMessage("🤖","Would you like to continue or end? Select an option below.");
+            showContinueOptions();
+        } else {
+            appendMessage("🤖","Thank you for chatting! Have a great day!");
+        }
+    }
+
+    function showContinueOptions() {
+        const chatBody = document.getElementById("chat-body");
+        const optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("chat-options");
+
+        const continueButton = document.createElement("button");
+        continueButton.innerText = "Continue";
+        continueButton.onclick = showOptions;
+        optionsDiv.appendChild(continueButton);
+
+        const endButton = document.createElement("button");
+        endButton.innerText = "End";
+        endButton.onclick = () => appendMessage("🤖","Thank you for chatting! Have a great day!");
+        optionsDiv.appendChild(endButton);
+
+        chatBody.appendChild(optionsDiv);
+    }
+</script>
+</body>
+</html>
